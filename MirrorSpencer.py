@@ -4,8 +4,6 @@
 '''
 To Do:
 Make mirror pretty
-
-in many moons:
 add calendar
 '''
 
@@ -16,6 +14,7 @@ import sys
 import urllib.request
 from pprint import pprint
 import time
+import urllib.parse
 
 class Mirror(QtGui.QWidget):
     
@@ -33,6 +32,10 @@ class Mirror(QtGui.QWidget):
         currentTempFont= QtGui.QFont()
         currentTempFont.setPointSize(45)
         futureWeatherFont.setPointSize(20)
+        welcomeFont= QtGui.QFont()
+        welcomeFont.setPointSize(12)
+        subFont= QtGui.QFont()
+        subFont.setPointSize(12)
         
 ##______AUTOMATED TIMERS SET_______
         self.timeTimer = QtCore.QTimer(self)
@@ -111,7 +114,7 @@ class Mirror(QtGui.QWidget):
         self.todayMap.setPixmap(todayPixmap)
         self.todayMap.move(180,190)
 ##_____TOMORROW____________
-        
+    
         tomorrowText += (": " + dictResponse['forecast']['simpleforecast']['forecastday'][1]['high']['fahrenheit'] +  '\xb0' +
                   '/' + dictResponse['forecast']['simpleforecast']['forecastday'][1]['low']['fahrenheit'] + '\xb0')
         self.tomorrowLabel = QtGui.QLabel(tomorrowText, self)
@@ -159,6 +162,14 @@ class Mirror(QtGui.QWidget):
         logo = QtGui.QLabel(self)
         logo.setPixmap(logoPixmap)
         logo.move(200,0)
+
+##______WELCOME TO LYDIAN_______
+        self.welcomeToLydian = QtGui.QLabel('Welcome To Lydian', self)
+        self.welcomeToLydian.move(100,10)
+        self.welcomeToLydian.setFont(welcomeFont)
+        self.subLydian = QtGui.QLabel('An innovative middle and high school in the heart of Silicon Valley.', self)
+        self.subLydian.move(100,10)
+        self.subLydian.setFont(subFont)
 
 ##______DISPLAY, PALETTE, AND SHOW______
         self.showFullScreen()
